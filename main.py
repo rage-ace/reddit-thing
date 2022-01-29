@@ -35,8 +35,10 @@ headers = {**headers, **{'Authorization': f"bearer {TOKEN}"}}
 last_saved = requests.get('https://oauth.reddit.com/user/Rageacew/saved',
                           headers=headers, params={'limit': 1}).json()['data']['children'][0]['data']['name']
 
+# this is horrible code
 while True:
-    # TODO: finish testing lol
+    # TODO: add error catching maybe
+    # TODO: make it such that every two hours the auth token will refresh
 
     saved_list = requests.get('https://oauth.reddit.com/user/Rageacew/saved',
                       headers=headers, params={'before': last_saved}).json()['data']['children']
@@ -52,4 +54,4 @@ while True:
     else:
         print('No new post detected', datetime.datetime.now().time())
 
-    time.sleep(10)
+    time.sleep(60)
